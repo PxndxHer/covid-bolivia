@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bolivia frente al COVID-19</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Modelos y resultados del proyecto de Ciencia de Datos sobre la respuesta sanitaria de Bolivia frente al COVID-19 en 2020.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+
+/* Layout: informe técnico de una columna (~68ch) con barra de secciones fija; tablas y figuras se ensanchan hasta 1040px. */
+:root{
+  --bg:#F6F7FA;          /* papel con sesgo azul */
+  --surface:#FFFFFF;
+  --ink:#16202E;         /* texto */
+  --muted:#5A6577;
+  --line:#D9DEE7;
+  --navy:#0B2A5B;        /* titulares, como en el tablero */
+  --red:#B2182B;         /* Bolivia en todas las figuras */
+  --red-soft:#F7E3E5;
+  --blue:#2166AC;        /* modelos y series */
+  --blue-soft:#E2ECF6;
+  --good:#1B7837;
+  --warn:#9A6200;
+  --warn-soft:#FBF0DC;
+  --plate:#FFFFFF;       /* fondo de las figuras PNG */
+  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --f-data:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+  --step--1:.84rem; --step-0:1.05rem; --step-1:1.25rem; --step-2:1.6rem; --step-3:2.2rem; --step-4:clamp(2.1rem,5.2vw,3.4rem);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1520; --surface:#172030; --ink:#E6EAF1; --muted:#9AA5B8; --line:#2A3547;
+  --navy:#A9C4EE; --red:#F0717F; --red-soft:#3A1E26; --blue:#7FB0E3; --blue-soft:#1A2B42;
+  --good:#6CC08A; --warn:#E3B05A; --warn-soft:#352A16; --plate:#F4F5F8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1520; --surface:#172030; --ink:#E6EAF1; --muted:#9AA5B8; --line:#2A3547;
+  --navy:#A9C4EE; --red:#F0717F; --red-soft:#3A1E26; --blue:#7FB0E3; --blue-soft:#1A2B42;
+  --good:#6CC08A; --warn:#E3B05A; --warn-soft:#352A16; --plate:#F4F5F8; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:var(--step-0);line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3{font-family:var(--f-display);color:var(--navy);text-wrap:balance;line-height:1.15;margin:0}
+h2{font-size:var(--step-3);font-weight:800;letter-spacing:-.01em}
+h3{font-size:var(--step-1);font-weight:700;margin-top:.4rem}
+p{margin:0}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible,input:focus-visible,img:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
+.num,td.n,th.n{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+.wrap{max-width:1040px;margin-inline:auto}
+.prose{max-width:68ch;display:grid;gap:.9rem}
+.eyebrow{font-family:var(--f-data);font-size:var(--step--1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* barra de secciones */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:1px solid var(--line);
+  margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar nav{max-width:1040px;margin-inline:auto;display:flex;gap:.25rem;overflow-x:auto;scrollbar-width:none;padding-block:.5rem}
+.bar nav::-webkit-scrollbar{display:none}
+.bar a{flex:none;text-decoration:none;color:var(--muted);font-family:var(--f-display);font-weight:600;font-size:.92rem;padding:.35rem .7rem;border-radius:999px;white-space:nowrap}
+.bar a:hover{color:var(--ink);background:var(--bg)}
+.bar a.on{color:var(--surface);background:var(--navy)}
+
+/* cabecera */
+header.top{padding-block:3rem 2.2rem;display:grid;gap:1.1rem}
+header.top h1{font-size:var(--step-4);font-weight:800;letter-spacing:-.02em;max-width:18ch}
+header.top h1 span{color:var(--red)}
+.lede{font-size:var(--step-1);color:var(--muted);max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-size:var(--step--1);color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+
+/* hallazgos */
+.findings{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.finding{background:var(--surface);padding:1.1rem 1.2rem 1.2rem;display:grid;gap:.35rem;align-content:start;min-width:0}
+.finding .big{font-family:var(--f-display);font-weight:800;font-size:var(--step-3);color:var(--red);line-height:1}
+.finding .big small{font-size:var(--step-0);font-weight:600;color:var(--muted)}
+.finding p{font-size:.97rem}
+.finding .tag{font-family:var(--f-data);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+section.block{padding-block:3.2rem 1rem;display:grid;gap:1.4rem;border-top:1px solid var(--line);margin-top:2.4rem}
+.sec-head{display:grid;gap:.5rem}
+.sec-head .q{font-size:var(--step-1);color:var(--muted);max-width:62ch}
+
+/* ficha del modelo */
+.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
+.spec div{border-left:3px solid var(--blue);padding:.2rem 0 .2rem .8rem;min-width:0}
+.spec dt{font-family:var(--f-data);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.spec dd{margin:0;font-size:.97rem}
+
+/* figuras */
+figure{margin:0;display:grid;gap:.5rem;min-width:0}
+figure .plate{background:var(--plate);border:1px solid var(--line);border-radius:8px;padding:.6rem;display:block;cursor:zoom-in}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-size:var(--step--1);color:var(--muted);max-width:75ch}
+figcaption b{color:var(--ink)}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:1.4rem}
+.fig-narrow{max-width:420px}
+
+/* tablas */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+caption{caption-side:top;text-align:left;padding:.75rem .9rem .2rem;font-family:var(--f-display);font-weight:700;color:var(--navy)}
+th,td{padding:.5rem .9rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+thead th{font-family:var(--f-data);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:500;white-space:nowrap}
+td.n,th.n{text-align:right;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tr.bol td{background:var(--red-soft)}
+tr.bol td:first-child{color:var(--red);font-weight:700}
+tr.best td{background:var(--blue-soft)}
+tr.best td:first-child{font-weight:700}
+.cell-bar{display:flex;align-items:center;gap:.5rem;justify-content:flex-end}
+.cell-bar i{display:block;height:8px;border-radius:2px;background:var(--muted);opacity:.55}
+tr.best .cell-bar i{background:var(--blue);opacity:1}
+.neg{color:var(--red)}
+.pill{display:inline-block;font-family:var(--f-data);font-size:.72rem;padding:.1rem .45rem;border-radius:999px;background:var(--blue-soft);color:var(--blue);font-weight:500;letter-spacing:.03em;vertical-align:middle}
+.pill.red{background:var(--red-soft);color:var(--red)}
+
+/* notas */
+.note{border:1px solid var(--line);border-left:4px solid var(--warn);background:var(--warn-soft);border-radius:6px;padding:.9rem 1.1rem;display:grid;gap:.35rem;max-width:78ch}
+.note strong{font-family:var(--f-display);color:var(--ink)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1.4rem;align-items:start}
+.two > *{min-width:0}
+ul.clean{margin:0;padding-left:1.1rem;display:grid;gap:.4rem}
+
+/* grupos k-means */
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem}
+.group{border:1px solid var(--line);border-radius:8px;padding:.9rem;background:var(--surface);display:grid;gap:.3rem;align-content:start}
+.group.bol{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+.group h4{margin:0;font-family:var(--f-display);font-size:1rem;color:var(--navy)}
+.group .n{font-family:var(--f-data);font-size:.78rem;color:var(--muted)}
+.group p{font-size:.9rem}
+
+/* simulador IPS */
+.sim{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:1.2rem;display:grid;gap:1rem}
+.sim label{font-family:var(--f-display);font-weight:600;color:var(--navy)}
+.sim input[type=range]{width:100%;accent-color:var(--red)}
+.sim-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem}
+.sim-out div{display:grid;gap:.1rem}
+.sim-out .v{font-family:var(--f-display);font-weight:800;font-size:var(--step-2);color:var(--ink);font-variant-numeric:tabular-nums}
+.sim-out .k{font-size:var(--step--1);color:var(--muted)}
+.gauge{position:relative;height:14px;border-radius:7px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+.gauge i{position:absolute;inset:0 auto 0 0;background:var(--red);border-radius:7px 0 0 7px;transition:width .15s}
+.gauge b{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink)}
+.gauge-scale{display:flex;justify-content:space-between;font-family:var(--f-data);font-size:.74rem;color:var(--muted)}
+
+/* matriz de confusión */
+.cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:4px;max-width:360px;font-size:.9rem}
+.cm span{padding:.6rem;text-align:center;border-radius:4px}
+.cm .h{font-family:var(--f-data);font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;align-self:center}
+.cm .c{font-family:var(--f-data);font-weight:500;font-size:1.05rem}
+.cm .ok{background:var(--blue);color:var(--surface)}
+.cm .ko{background:var(--blue-soft);color:var(--ink)}
+
+pre{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:1rem;overflow-x:auto;font-family:var(--f-data);font-size:.85rem;line-height:1.55;margin:0}
+footer{padding-block:2.5rem 3rem;margin-top:3rem;border-top:1px solid var(--line);color:var(--muted);font-size:var(--step--1);display:grid;gap:.3rem}
+
+/* visor de figuras */
+dialog.viewer{border:0;padding:0;background:transparent;max-width:min(1200px,96vw);max-height:94vh}
+dialog.viewer::backdrop{background:rgba(8,12,20,.82)}
+dialog.viewer img{display:block;max-width:100%;max-height:88vh;background:#fff;border-radius:6px;padding:.6rem}
+dialog.viewer p{color:#E6EAF1;font-size:.9rem;padding:.5rem .2rem 0;text-align:center}
+</style>
+
+</head>
+<body>
+<div class="bar"><nav aria-label="Secciones">
+  <a href="#resumen">Resumen</a>
+  <a href="#perfiles">Modelo 1 · Perfiles</a>
+  <a href="#series">Modelo 2 · Pronóstico</a>
+  <a href="#ips">Presión sanitaria</a>
+  <a href="#riesgo">Modelo 3 · Riesgo municipal</a>
+  <a href="#conclusiones">Conclusiones</a>
+</nav></div>
+
+<main class="wrap">
+
+<header class="top" id="resumen">
+  <p class="eyebrow">Proyecto de Ciencia de Datos · Ingeniería de Sistemas</p>
+  <h1>La respuesta sanitaria de <span>Bolivia</span> frente al COVID-19</h1>
+  <p class="lede">Resultados de los tres modelos: cómo se compara Bolivia con otros países, cuántos casos semanales cabía esperar y qué municipios tenían más riesgo de letalidad alta.</p>
+  <div class="meta">
+    <span><b>Autor:</b> Henry Pilco Cussy</span>
+    <span><b>Universidad:</b> Universidad Privada Franz Tamayo</span>
+    <span><b>Datos hasta:</b> 19/09/2020</span>
+    <span><b>Semilla:</b> 42 (resultados reproducibles)</span>
+  </div>
+</header>
+
+<div class="findings" aria-label="Hallazgos principales">
+  <div class="finding">
+    <span class="tag">Letalidad aparente</span>
+    <span class="big num">5,8 %</span>
+    <p>Bolivia tenía la segunda letalidad más alta de los ocho países comparados, solo detrás de Ecuador (8,9 %).</p>
+  </div>
+  <div class="finding">
+    <span class="tag">Presión sobre camas</span>
+    <span class="big num">1,76 <small>casos/cama</small></span>
+    <p>En el pico del 28 de julio hubo 1,76 casos de 14 días por cada cama hospitalaria del país.</p>
+  </div>
+  <div class="finding">
+    <span class="tag">Perfil de respuesta</span>
+    <span class="big num">13 <small>países</small></span>
+    <p>Bolivia cae en el grupo de alta transmisión con medidas rígidas, junto a Colombia, Perú, Brasil y Chile.</p>
+  </div>
+  <div class="finding">
+    <span class="tag">Riesgo municipal</span>
+    <span class="big num">0,83 <small>AUC</small></span>
+    <p>La letalidad previa de cada municipio predice su letalidad posterior; un modelo más complejo no la supera.</p>
+  </div>
+</div>
+
+<!-- ============================ MODELO 1 -->
+<section class="block" id="perfiles">
+  <div class="sec-head">
+    <p class="eyebrow">Modelo 1 · Aprendizaje no supervisado</p>
+    <h2>¿A qué países se parece Bolivia?</h2>
+    <p class="q">Agrupación k-means de 88 países según 8 indicadores de la pandemia y de sus recursos sanitarios.</p>
+  </div>
+
+  <div class="two">
+    <div class="tbl">
+      <table>
+        <caption>Coeficiente de silueta según k</caption>
+        <thead><tr><th>k</th><th class="n">8 países</th><th class="n">88 países</th></tr></thead>
+        <tbody>
+          <tr><td class="num">2</td><td class="n"><b>0,174</b></td><td class="n">0,288</td></tr>
+          <tr><td class="num">3</td><td class="n">0,125</td><td class="n">0,317</td></tr>
+          <tr><td class="num">4</td><td class="n">0,103</td><td class="n">0,344</td></tr>
+          <tr class="best"><td class="num">5</td><td class="n">—</td><td class="n"><b>0,353</b></td></tr>
+          <tr><td class="num">6</td><td class="n">—</td><td class="n">0,278</td></tr>
+          <tr><td class="num">7</td><td class="n">—</td><td class="n">0,291</td></tr>
+          <tr><td class="num">8</td><td class="n">—</td><td class="n">0,281</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose">
+      <p><b>Con solo 8 países</b> la estructura es débil (silueta 0,17). Separa a Bolivia, Ecuador y Paraguay (letalidad media de 5,5 %, 1,3 camas por mil, población joven) de Argentina, Brasil, Chile, Colombia y Perú (letalidad de 3,0 %, 2,5 camas por mil).</p>
+      <p><b>Con 88 países</b> la mejor partición tiene 5 grupos (silueta 0,353). Es estable: coincide bien con Ward (<span class="num">ARI = 0,75</span>) y con 50 corridas de semillas distintas (ARI medio de 0,77, mínimo de 0,52).</p>
+    </div>
+  </div>
+
+  <h3>Los cinco perfiles mundiales</h3>
+  <div class="groups">
+    <div class="group"><h4>Grupo 1 · Brote leve, población joven</h4><span class="n">28 países</span><p>40 muertes/millón, IDH 0,63, edad mediana 25 años. Incluye a Paraguay.</p></div>
+    <div class="group"><h4>Grupo 2 · Alta capacidad hospitalaria</h4><span class="n">32 países</span><p>5,8 camas por mil, IDH 0,86, población mayor (42 años) y medidas poco rígidas.</p></div>
+    <div class="group bol"><h4>Grupo 3 · Alta transmisión, medidas rígidas</h4><span class="n">13 países · Bolivia</span><p>16 483 casos y 424 muertes por millón, rigurosidad de 72,7. La mayoría de Sudamérica.</p></div>
+    <div class="group"><h4>Grupo 4 · Alta letalidad</h4><span class="n">9 países</span><p>Letalidad de 8,6 % y 501 muertes por millón. Incluye a Ecuador.</p></div>
+    <div class="group"><h4>Grupo 5 · Testeo masivo</h4><span class="n">6 países</span><p>567 pruebas por mil habitantes y letalidad de solo 1,0 %.</p></div>
+  </div>
+
+  <div class="two">
+    <figure>
+      <a class="plate" href="figuras/m1_pca.png" data-zoom><img src="figuras/m1_pca.png" alt="Proyección PCA de 88 países coloreados por grupo, con Bolivia destacada" loading="lazy"></a>
+      <figcaption><b>Mapa de países (PCA).</b> El eje 1 (38 % de la varianza) mide desarrollo: IDH, edad y camas, en contra de la rigurosidad. El eje 2 (24 %) mide la gravedad del brote: muertes, casos y letalidad. Bolivia queda arriba a la izquierda, con brote grave y menor desarrollo.</figcaption>
+    </figure>
+    <div class="prose">
+      <h3>Compañeros de grupo de Bolivia</h3>
+      <p>Argentina, Brasil, Chile, Colombia, Costa Rica, Estados Unidos, Kazajistán, Kuwait, Panamá, Perú, Arabia Saudita y Sudáfrica.</p>
+      <div class="tbl">
+        <table>
+          <caption>Países más cercanos a Bolivia</caption>
+          <thead><tr><th>País</th><th class="n">Distancia</th></tr></thead>
+          <tbody>
+            <tr><td>Colombia</td><td class="n">1,87</td></tr>
+            <tr><td>Perú</td><td class="n">2,31</td></tr>
+            <tr><td>Ecuador</td><td class="n">2,53</td></tr>
+            <tr><td>Panamá</td><td class="n">2,65</td></tr>
+            <tr><td>Sudáfrica</td><td class="n">2,76</td></tr>
+            <tr><td>El Salvador</td><td class="n">2,87</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:var(--step--1);color:var(--muted)">Distancia euclidiana en las 8 variables estandarizadas.</p>
+    </div>
+  </div>
+  <figure>
+    <a class="plate" href="figuras/m1_silueta.png" data-zoom><img src="figuras/m1_silueta.png" alt="Coeficiente de silueta según número de grupos para las dos muestras" loading="lazy"></a>
+    <figcaption><b>Elección de k.</b> La línea roja marca el k elegido en cada muestra. Para la muestra mundial se exigió k ≥ 3, para no quedarse con una división trivial en dos.</figcaption>
+  </figure>
+</section>
+
+<!-- ============================ MODELO 2 -->
+<section class="block" id="series">
+  <div class="sec-head">
+    <p class="eyebrow">Modelo 2 · Series de tiempo</p>
+    <h2>¿Cuántos casos semanales cabía esperar?</h2>
+    <p class="q">Seis métodos de pronóstico a 4 semanas sobre los casos nuevos semanales de Bolivia (28 semanas, pico el 08/08 con 11 102 casos), evaluados con 13 cortes cronológicos.</p>
+  </div>
+
+  <div class="tbl">
+    <table>
+      <caption>Error de validación cronológica (casos por semana)</caption>
+      <thead><tr><th>Modelo</th><th class="n">MAE</th><th class="n" style="min-width:170px">RMSE</th><th class="n">MAPE</th><th class="n">R²</th></tr></thead>
+      <tbody id="ts-body"></tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>Ningún modelo predice bien el cambio de tendencia</strong>
+    <p>Todos tienen R² negativo, o sea que en promedio predicen peor que la media del periodo evaluado. Holt amortiguado gana porque es el que menos se equivoca, no porque acierte. En el último bloque de prueba (29/08 al 19/09) todos esperaban unos 10 000 casos por semana, porque el pico acababa de pasar, y llegaron entre 4 900 y 7 000.</p>
+  </div>
+
+  <div class="two">
+    <div class="tbl">
+      <table>
+        <caption>Último bloque de prueba</caption>
+        <thead><tr><th>Semana</th><th class="n">Real</th><th class="n">Holt</th><th class="n">ARIMA</th></tr></thead>
+        <tbody>
+          <tr><td class="num">29/08</td><td class="n"><b>6 974</b></td><td class="n">10 229</td><td class="n">8 338</td></tr>
+          <tr><td class="num">05/09</td><td class="n"><b>5 171</b></td><td class="n">10 225</td><td class="n">11 049</td></tr>
+          <tr><td class="num">12/09</td><td class="n"><b>5 592</b></td><td class="n">10 222</td><td class="n">9 543</td></tr>
+          <tr><td class="num">19/09</td><td class="n"><b>4 879</b></td><td class="n">10 219</td><td class="n">11 338</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl">
+      <table>
+        <caption>Proyección con Holt amortiguado</caption>
+        <thead><tr><th>Semana</th><th class="n">Puntual</th><th class="n">Intervalo 80 %</th><th class="n">ARIMA (1,1,2)</th></tr></thead>
+        <tbody>
+          <tr><td class="num">26/09</td><td class="n"><b>3 910</b></td><td class="n">0 – 5 082</td><td class="n">3 609</td></tr>
+          <tr><td class="num">03/10</td><td class="n"><b>3 320</b></td><td class="n">0 – 4 493</td><td class="n">2 948</td></tr>
+          <tr><td class="num">10/10</td><td class="n"><b>2 804</b></td><td class="n">0 – 3 976</td><td class="n">2 416</td></tr>
+          <tr><td class="num">17/10</td><td class="n"><b>2 351</b></td><td class="n">0 – 3 523</td><td class="n">1 986</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="prose" style="color:var(--muted)">Los dos modelos coinciden en que los casos bajan en octubre. Los intervalos salen de los errores de la validación y llegan hasta cero, así que la cifra exacta es muy incierta; la tendencia a la baja es lo más confiable.</p>
+
+  <div class="figs">
+    <figure>
+      <a class="plate" href="figuras/m2_backtest.png" data-zoom><img src="figuras/m2_backtest.png" alt="Serie semanal observada y pronósticos de cada modelo en el bloque de prueba" loading="lazy"></a>
+      <figcaption><b>Último bloque de prueba.</b> Todos los modelos sobreestiman tras el pico.</figcaption>
+    </figure>
+    <figure>
+      <a class="plate" href="figuras/m2_proyeccion.png" data-zoom><img src="figuras/m2_proyeccion.png" alt="Proyección de casos semanales a 4 semanas con intervalos" loading="lazy"></a>
+      <figcaption><b>Proyección a 4 semanas</b> con intervalos empíricos del 80 % y 95 %.</figcaption>
+    </figure>
+  </div>
+  <figure>
+    <a class="plate" href="figuras/m2_rmse.png" data-zoom><img src="figuras/m2_rmse.png" alt="RMSE de validación por modelo" loading="lazy"></a>
+    <figcaption><b>Comparación de RMSE.</b> En rojo, el modelo elegido.</figcaption>
+  </figure>
+</section>
+
+<!-- ============================ IPS -->
+<section class="block" id="ips">
+  <div class="sec-head">
+    <p class="eyebrow">Modelo 2 · Índice de presión sanitaria</p>
+    <h2>¿Cuánta presión hubo sobre los hospitales?</h2>
+    <p class="q">El IPS divide los casos nuevos de los últimos 14 días entre las camas hospitalarias del país. Un valor de 1 significa un caso reciente por cada cama.</p>
+  </div>
+  <div class="two">
+    <div class="tbl">
+      <table>
+        <thead><tr><th>País</th><th class="n">Camas</th><th class="n">IPS pico</th><th>Fecha del pico</th><th class="n">IPS 19/09</th></tr></thead>
+        <tbody>
+          <tr><td>Chile</td><td class="n">40 335</td><td class="n">2,70</td><td class="num">21/06</td><td class="n">0,60</td></tr>
+          <tr><td>Perú</td><td class="n">52 755</td><td class="n">2,23</td><td class="num">26/08</td><td class="n">1,51</td></tr>
+          <tr><td>Colombia</td><td class="n">87 010</td><td class="n">1,80</td><td class="num">20/08</td><td class="n">1,15</td></tr>
+          <tr class="bol"><td>Bolivia</td><td class="n">12 840</td><td class="n">1,76</td><td class="num">28/07</td><td class="n">0,82</td></tr>
+          <tr><td>Brasil</td><td class="n">467 631</td><td class="n">1,37</td><td class="num">05/08</td><td class="n">0,86</td></tr>
+          <tr><td>Paraguay</td><td class="n">9 272</td><td class="n">1,24</td><td class="num">19/09</td><td class="n">1,24</td></tr>
+          <tr><td>Ecuador</td><td class="n">26 465</td><td class="n">0,82</td><td class="num">05/05</td><td class="n">0,26</td></tr>
+          <tr><td>Argentina</td><td class="n">225 979</td><td class="n">0,67</td><td class="num">19/09</td><td class="n">0,67</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sim" aria-labelledby="sim-title">
+      <label id="sim-title" for="beds">Simular camas adicionales en el pico de Bolivia</label>
+      <input type="range" id="beds" min="0" max="150" step="5" value="0" aria-describedby="sim-help">
+      <div class="gauge" aria-hidden="true"><i id="gauge-fill"></i><b id="gauge-one"></b></div>
+      <div class="gauge-scale" aria-hidden="true"><span>0</span><span>1 caso/cama</span><span>2,0</span></div>
+      <div class="sim-out" aria-live="polite">
+        <div><span class="v" id="o-pct">+0 %</span><span class="k">camas adicionales</span></div>
+        <div><span class="v" id="o-beds">12 840</span><span class="k">camas en total</span></div>
+        <div><span class="v" id="o-ips">1,76</span><span class="k">IPS en el pico</span></div>
+      </div>
+      <p id="sim-help" style="font-size:var(--step--1);color:var(--muted)">En el pico hubo 22 560 casos en 14 días. Para bajar de 1 caso por cama hacían falta un 76 % más de camas (22 560 en total). Para igualar el pico mediano de los otros siete países (1,37) bastaban 16 431.</p>
+    </div>
+  </div>
+  <figure>
+    <a class="plate" href="figuras/m2_ips.png" data-zoom><img src="figuras/m2_ips.png" alt="Serie del IPS por país y escenarios de capacidad para Bolivia" loading="lazy"></a>
+    <figcaption><b>IPS en el tiempo y escenarios de capacidad.</b> Con un 100 % más de camas, el pico de Bolivia habría sido de 0,88. Con la proyección de Holt, las dos semanas siguientes darían un IPS de 0,56.</figcaption>
+  </figure>
+</section>
+
+<!-- ============================ MODELO 3 -->
+<section class="block" id="riesgo">
+  <div class="sec-head">
+    <p class="eyebrow">Modelo 3 · Clasificación supervisada</p>
+    <h2>¿Qué municipios llegarían a una letalidad alta?</h2>
+    <p class="q">94 municipios con al menos 30 casos (39 de letalidad alta y 55 de baja). Con datos de la semana 27 se predice si tendrán una letalidad de 3,7 % o más en la semana 30. Conjunto A: tamaño del brote y departamento; conjunto B: además, la letalidad y los fallecidos de la semana 27.</p>
+  </div>
+
+  <div class="tbl">
+    <table>
+      <caption>Desempeño medio en validación cruzada</caption>
+      <thead><tr><th>Modelo</th><th>Variables</th><th class="n">Exactitud</th><th class="n">Precisión</th><th class="n">Sensibilidad</th><th class="n">F1</th><th class="n">AUC</th></tr></thead>
+      <tbody>
+        <tr><td>Clase mayoritaria</td><td><span class="pill red">línea base</span></td><td class="n">0,585</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">0,500</td></tr>
+        <tr class="best"><td>Persistencia (letalidad SE 27 ≥ 3,7 %)</td><td><span class="pill red">línea base</span></td><td class="n">0,830</td><td class="n">0,811</td><td class="n">0,769</td><td class="n">0,789</td><td class="n">0,831</td></tr>
+        <tr><td>Árbol de decisión</td><td><span class="pill">A</span></td><td class="n">0,634</td><td class="n">0,639</td><td class="n">0,389</td><td class="n">0,451</td><td class="n">0,606</td></tr>
+        <tr><td>Bosque aleatorio</td><td><span class="pill">A</span></td><td class="n">0,689</td><td class="n">0,764</td><td class="n">0,387</td><td class="n">0,489</td><td class="n">0,672</td></tr>
+        <tr><td>Regresión logística</td><td><span class="pill">A</span></td><td class="n">0,682</td><td class="n">0,692</td><td class="n">0,445</td><td class="n">0,522</td><td class="n">0,648</td></tr>
+        <tr><td>Árbol de decisión</td><td><span class="pill">B</span></td><td class="n">0,775</td><td class="n">0,830</td><td class="n">0,599</td><td class="n">0,678</td><td class="n">0,786</td></tr>
+        <tr class="best"><td>Bosque aleatorio</td><td><span class="pill">B</span></td><td class="n">0,818</td><td class="n">0,833</td><td class="n">0,717</td><td class="n">0,761</td><td class="n">0,830</td></tr>
+        <tr><td>Regresión logística</td><td><span class="pill">B</span></td><td class="n">0,771</td><td class="n">0,763</td><td class="n">0,676</td><td class="n">0,703</td><td class="n">0,793</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>La regla simple empata con el mejor modelo</strong>
+    <p>El bosque aleatorio B y la regla de persistencia ("si ya tenía letalidad alta en la semana 27, seguirá alta") logran el mismo AUC (0,83), y la regla tiene mejor F1 (0,79 contra 0,76). Solo con tamaño y departamento (conjunto A) los modelos apenas superan a la clase mayoritaria. La conclusión es que la letalidad de un municipio es muy persistente: la mejor alerta temprana es vigilar su letalidad actual.</p>
+  </div>
+
+  <div class="two">
+    <div class="prose">
+      <h3>Matriz de confusión · bosque B</h3>
+      <div class="cm" role="table" aria-label="Matriz de confusión media del bosque aleatorio B">
+        <span class="h"></span><span class="h">Predicho bajo</span><span class="h">Predicho alto</span>
+        <span class="h">Real bajo</span><span class="c ok">49,0</span><span class="c ko">6,0</span>
+        <span class="h">Real alto</span><span class="c ko">11,0</span><span class="c ok">28,0</span>
+      </div>
+      <p style="font-size:var(--step--1);color:var(--muted)">Promedio por repetición de la validación (los 94 municipios). El modelo no detecta 11 de los 39 municipios de letalidad alta.</p>
+      <h3>Qué variables importan</h3>
+      <p>Si se desordena la letalidad de la semana 27, el AUC cae 0,187. Si se desordena cualquier otra variable, cae menos de 0,01 (Cochabamba 0,007; fallecidos SE 27 0,006; Oruro y Beni 0,003).</p>
+    </div>
+    <figure>
+      <a class="plate" href="figuras/m3_clasificacion.png" data-zoom><img src="figuras/m3_clasificacion.png" alt="Importancia de variables por permutación y F1 de los modelos frente a la línea base" loading="lazy"></a>
+      <figcaption><b>Importancia de variables y F1.</b> La línea discontinua es la regla de persistencia.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ CONCLUSIONES -->
+<section class="block" id="conclusiones">
+  <div class="sec-head">
+    <p class="eyebrow">Interpretación</p>
+    <h2>Conclusiones</h2>
+  </div>
+  <div class="two">
+    <div class="prose">
+      <ul class="clean">
+        <li><b>Bolivia enfrentó un brote grave con poca capacidad.</b> Con 1,1 camas por mil habitantes, la menor de la región, tuvo una de las presiones hospitalarias más altas (1,76) y la segunda mortalidad por millón.</li>
+        <li><b>Su perfil es el de alta transmisión con medidas rígidas.</b> Fue el país más estricto de los ocho (rigurosidad media de 89,9), y aun así su brote se parece al de Colombia y Perú.</li>
+        <li><b>El pico de casos fue a inicios de agosto</b> y la tendencia en septiembre era a la baja. Los modelos no anticiparon el cambio de tendencia.</li>
+        <li><b>La letalidad cambia mucho según el territorio</b>: de 1,6 % en La Paz a 8,6 % en Pando. Es persistente en el tiempo, lo que permite usarla como alerta temprana.</li>
+      </ul>
+    </div>
+    <figure>
+      <a class="plate" href="figuras/tablero_resumen.png" data-zoom><img src="figuras/tablero_resumen.png" alt="Tablero resumen con los cuatro resultados principales" loading="lazy"></a>
+      <figcaption><b>Tablero resumen</b> de los tres modelos.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<footer>
+  <span>Henry Pilco Cussy · Universidad Privada Franz Tamayo · Ingeniería de Sistemas</span>
+  <span>Fuentes: Ministerio de Salud y Deportes de Bolivia (semanas 20 a 30 de 2020) y Our World in Data (hasta el 19/09/2020).</span>
+</footer>
+</main>
+
+<dialog class="viewer" id="viewer" aria-label="Figura ampliada">
+  <img id="viewer-img" alt="">
+  <p>Haz clic o pulsa Esc para cerrar</p>
+</dialog>
+
+<script>
+(function(){
+  function nf(v,d){ // separador de miles: espacio fino; decimal: coma
+    var s = Math.abs(v).toFixed(d||0).split('.');
+    s[0] = s[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+    return (v<0?'−':'') + s.join(',');
+  }
+
+  // Tabla de series de tiempo
+  var ts = [
+    ['Suavizamiento de Holt amortiguado',1996,2782,27.6,-0.532],
+    ['Ingenuo (último valor)',2374,2853,33.2,-0.612],
+    ['Regresión lineal (6 semanas)',2177,3009,30.7,-0.794],
+    ['Media móvil de 3 semanas',2914,3276,40.1,-1.126],
+    ['ARIMA (p,1,q) sobre log',3157,4192,42.5,-2.479],
+    ['Regresión polinómica (grado 2)',3371,5012,48.4,-3.975]
+  ];
+  var max = 5012, body = document.getElementById('ts-body');
+  ts.forEach(function(r,i){
+    var tr = document.createElement('tr'); if(i===0) tr.className='best';
+    tr.innerHTML = '<td>'+r[0]+(i===0?' <span class="pill">elegido</span>':'')+'</td>'+
+      '<td class="n">'+nf(r[1])+'</td>'+
+      '<td class="n"><span class="cell-bar"><i style="width:'+(r[2]/max*90).toFixed(1)+'px"></i>'+nf(r[2])+'</span></td>'+
+      '<td class="n">'+nf(r[3],1)+' %</td>'+
+      '<td class="n neg">'+nf(r[4],3)+'</td>';
+    body.appendChild(tr);
+  });
+
+  // Simulador IPS
+  var PEAK = 22560.42, BEDS = 12840, SCALE = 2.0;
+  var inp = document.getElementById('beds'), fill = document.getElementById('gauge-fill');
+  document.getElementById('gauge-one').style.left = (1/SCALE*100)+'%';
+  function upd(){
+    var p = +inp.value, beds = BEDS*(1+p/100), ips = PEAK/beds;
+    document.getElementById('o-pct').textContent = '+'+p+' %';
+    document.getElementById('o-beds').textContent = nf(Math.round(beds));
+    var o = document.getElementById('o-ips'); o.textContent = nf(ips,2);
+    o.style.color = ips<1 ? 'var(--good)' : 'var(--red)';
+    fill.style.width = Math.min(ips/SCALE*100,100)+'%';
+    fill.style.background = ips<1 ? 'var(--good)' : 'var(--red)';
+  }
+  inp.addEventListener('input',upd); upd();
+
+  // Visor de figuras
+  var dlg = document.getElementById('viewer'), vimg = document.getElementById('viewer-img');
+  document.querySelectorAll('a[data-zoom]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      if(!dlg.showModal) return;
+      e.preventDefault();
+      var im = a.querySelector('img'); vimg.src = im.src; vimg.alt = im.alt; dlg.showModal();
+    });
+  });
+  dlg.addEventListener('click',function(){ dlg.close(); });
+
+  // Sección activa en la barra
+  var links = Array.prototype.slice.call(document.querySelectorAll('.bar a'));
+  var targets = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function spy(){
+    var y = window.scrollY + 90, idx = 0;
+    targets.forEach(function(t,i){ if(t && t.offsetTop <= y) idx = i; });
+    links.forEach(function(a,i){ a.classList.toggle('on', i===idx); });
+  }
+  window.addEventListener('scroll',spy,{passive:true}); spy();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,785 @@
+{
+ "sa": {
+  "k_sil": {
+   "2": 0.174,
+   "3": 0.125,
+   "4": 0.103
+  },
+  "kbest": 2,
+  "labels": {
+   "Bolivia": 0,
+   "Argentina": 1,
+   "Brasil": 1,
+   "Chile": 1,
+   "Colombia": 1,
+   "Ecuador": 0,
+   "Paraguay": 0,
+   "Per\u00fa": 1
+  },
+  "ari_ward": 0.4948453608247423,
+  "features": [
+   {
+    "pais": "Bolivia",
+    "total_deaths_per_million": 646.79,
+    "total_cases_per_million": 11141.15,
+    "cfr": 5.81,
+    "tests": 23.78,
+    "str_mean": 89.9,
+    "hospital_beds_per_thousand": 1.1,
+    "human_development_index": 0.69,
+    "median_age": 25.4
+   },
+   {
+    "pais": "Argentina",
+    "total_deaths_per_million": 276.38,
+    "total_cases_per_million": 13313.19,
+    "cfr": 2.08,
+    "tests": 31.04,
+    "str_mean": 78.74,
+    "hospital_beds_per_thousand": 5.0,
+    "human_development_index": 0.82,
+    "median_age": 31.9
+   },
+   {
+    "pais": "Brasil",
+    "total_deaths_per_million": 638.85,
+    "total_cases_per_million": 21147.89,
+    "cfr": 3.02,
+    "tests": 26.35,
+    "str_mean": 55.75,
+    "hospital_beds_per_thousand": 2.2,
+    "human_development_index": 0.76,
+    "median_age": 33.5
+   },
+   {
+    "pais": "Chile",
+    "total_deaths_per_million": 638.15,
+    "total_cases_per_million": 23165.0,
+    "cfr": 2.75,
+    "tests": 153.94,
+    "str_mean": 74.17,
+    "hospital_beds_per_thousand": 2.11,
+    "human_development_index": 0.84,
+    "median_age": 35.4
+   },
+   {
+    "pais": "Colombia",
+    "total_deaths_per_million": 468.72,
+    "total_cases_per_million": 14748.99,
+    "cfr": 3.18,
+    "tests": 58.37,
+    "str_mean": 79.66,
+    "hospital_beds_per_thousand": 1.71,
+    "human_development_index": 0.75,
+    "median_age": 32.2
+   },
+   {
+    "pais": "Ecuador",
+    "total_deaths_per_million": 625.97,
+    "total_cases_per_million": 7035.57,
+    "cfr": 8.9,
+    "tests": 17.51,
+    "str_mean": 58.62,
+    "hospital_beds_per_thousand": 1.5,
+    "human_development_index": 0.75,
+    "median_age": 28.1
+   },
+   {
+    "pais": "Paraguay",
+    "total_deaths_per_million": 85.66,
+    "total_cases_per_million": 4504.29,
+    "cfr": 1.9,
+    "tests": 33.53,
+    "str_mean": 82.34,
+    "hospital_beds_per_thousand": 1.3,
+    "human_development_index": 0.7,
+    "median_age": 26.5
+   },
+   {
+    "pais": "Per\u00fa",
+    "total_deaths_per_million": 948.78,
+    "total_cases_per_million": 22941.15,
+    "cfr": 4.14,
+    "tests": 19.12,
+    "str_mean": 82.3,
+    "hospital_beds_per_thousand": 1.6,
+    "human_development_index": 0.75,
+    "median_age": 29.1
+   }
+  ],
+  "profile": [
+   {
+    "cluster": 0,
+    "total_deaths_per_million": 452.81,
+    "total_cases_per_million": 7560.34,
+    "cfr": 5.53,
+    "tests": 24.94,
+    "str_mean": 76.95,
+    "hospital_beds_per_thousand": 1.3,
+    "human_development_index": 0.72,
+    "median_age": 26.67
+   },
+   {
+    "cluster": 1,
+    "total_deaths_per_million": 594.17,
+    "total_cases_per_million": 19063.24,
+    "cfr": 3.03,
+    "tests": 57.76,
+    "str_mean": 74.13,
+    "hospital_beds_per_thousand": 2.52,
+    "human_development_index": 0.78,
+    "median_age": 32.42
+   }
+  ]
+ },
+ "global": {
+  "n": 88,
+  "k_sil": {
+   "2": 0.288,
+   "3": 0.317,
+   "4": 0.344,
+   "5": 0.353,
+   "6": 0.278,
+   "7": 0.291,
+   "8": 0.281
+  },
+  "kbest": 5,
+  "ari_ward": 0.7457134321260348,
+  "sizes": {
+   "0": 28,
+   "1": 32,
+   "2": 13,
+   "3": 9,
+   "4": 6
+  },
+  "profile": [
+   {
+    "cluster": 0,
+    "total_deaths_per_million": 39.94,
+    "total_cases_per_million": 1987.19,
+    "cfr": 2.07,
+    "tests": 23.73,
+    "str_mean": 66.16,
+    "hospital_beds_per_thousand": 1.37,
+    "human_development_index": 0.63,
+    "median_age": 24.88
+   },
+   {
+    "cluster": 1,
+    "total_deaths_per_million": 62.12,
+    "total_cases_per_million": 3016.84,
+    "cfr": 2.23,
+    "tests": 128.73,
+    "str_mean": 46.06,
+    "hospital_beds_per_thousand": 5.81,
+    "human_development_index": 0.86,
+    "median_age": 42.08
+   },
+   {
+    "cluster": 2,
+    "total_deaths_per_million": 423.56,
+    "total_cases_per_million": 16482.83,
+    "cfr": 2.53,
+    "tests": 99.31,
+    "str_mean": 72.69,
+    "hospital_beds_per_thousand": 2.59,
+    "human_development_index": 0.79,
+    "median_age": 31.74
+   },
+   {
+    "cluster": 3,
+    "total_deaths_per_million": 501.14,
+    "total_cases_per_million": 5781.43,
+    "cfr": 8.57,
+    "tests": 129.91,
+    "str_mean": 49.86,
+    "hospital_beds_per_thousand": 2.72,
+    "human_development_index": 0.87,
+    "median_age": 38.18
+   },
+   {
+    "cluster": 4,
+    "total_deaths_per_million": 114.65,
+    "total_cases_per_million": 20837.49,
+    "cfr": 1.03,
+    "tests": 567.04,
+    "str_mean": 48.91,
+    "hospital_beds_per_thousand": 2.4,
+    "human_development_index": 0.88,
+    "median_age": 35.15
+   }
+  ],
+  "bolivia_cluster": 2,
+  "bolivia_cluster_members": [
+   "Argentina",
+   "Bolivia",
+   "Brazil",
+   "Chile",
+   "Colombia",
+   "Costa Rica",
+   "Kazakhstan",
+   "Kuwait",
+   "Panama",
+   "Peru",
+   "Saudi Arabia",
+   "South Africa",
+   "United States"
+  ],
+  "sa_clusters": {
+   "Bolivia": 2,
+   "Argentina": 2,
+   "Brasil": 2,
+   "Chile": 2,
+   "Colombia": 2,
+   "Ecuador": 3,
+   "Paraguay": 0,
+   "Per\u00fa": 2
+  },
+  "bolivia_neighbors": {
+   "Colombia": 1.87,
+   "Peru": 2.31,
+   "Ecuador": 2.53,
+   "Panama": 2.65,
+   "South Africa": 2.76,
+   "El Salvador": 2.87
+  },
+  "stab_ari_mean": 0.7675304364940867,
+  "stab_ari_min": 0.5182555813566866,
+  "pca_var": [
+   0.384,
+   0.239
+  ],
+  "pca_loadings": [
+   {
+    "var": "Fallecidos/mill\u00f3n",
+    "PC1": 0.09,
+    "PC2": 0.66
+   },
+   {
+    "var": "Casos/mill\u00f3n",
+    "PC1": 0.08,
+    "PC2": 0.48
+   },
+   {
+    "var": "Letalidad (%)",
+    "PC1": 0.12,
+    "PC2": 0.42
+   },
+   {
+    "var": "Pruebas/1 000",
+    "PC1": 0.31,
+    "PC2": 0.14
+   },
+   {
+    "var": "Rigurosidad media",
+    "PC1": -0.41,
+    "PC2": 0.25
+   },
+   {
+    "var": "Camas/1 000",
+    "PC1": 0.4,
+    "PC2": -0.26
+   },
+   {
+    "var": "IDH",
+    "PC1": 0.52,
+    "PC2": 0.1
+   },
+   {
+    "var": "Edad mediana",
+    "PC1": 0.52,
+    "PC2": -0.06
+   }
+  ]
+ },
+ "ts": {
+  "n_weeks": 28,
+  "first": "2020-03-14",
+  "last": "2020-09-19",
+  "peak_week": "2020-08-08",
+  "peak_value": 11102.0,
+  "metrics": [
+   {
+    "modelo": "Ingenuo (\u00faltimo valor)",
+    "mae": 2374.0,
+    "rmse": 2853.0,
+    "r2": -0.612,
+    "mape": 33.2,
+    "mae_final": 5322.0,
+    "rmse_final": 5382.0
+   },
+   {
+    "modelo": "Media m\u00f3vil de 3 semanas",
+    "mae": 2914.0,
+    "rmse": 3276.0,
+    "r2": -1.126,
+    "mape": 40.1,
+    "mae_final": 4561.0,
+    "rmse_final": 4632.0
+   },
+   {
+    "modelo": "Regresi\u00f3n lineal (6 semanas)",
+    "mae": 2177.0,
+    "rmse": 3009.0,
+    "r2": -0.794,
+    "mape": 30.7,
+    "mae_final": 4316.0,
+    "rmse_final": 4379.0
+   },
+   {
+    "modelo": "Regresi\u00f3n polin\u00f3mica (grado 2)",
+    "mae": 3371.0,
+    "rmse": 5012.0,
+    "r2": -3.975,
+    "mape": 48.4,
+    "mae_final": 9100.0,
+    "rmse_final": 9280.0
+   },
+   {
+    "modelo": "Suavizamiento de Holt amortiguado",
+    "mae": 1996.0,
+    "rmse": 2782.0,
+    "r2": -0.532,
+    "mape": 27.6,
+    "mae_final": 4570.0,
+    "rmse_final": 4639.0
+   },
+   {
+    "modelo": "ARIMA (p,1,q) sobre log",
+    "mae": 3157.0,
+    "rmse": 4192.0,
+    "r2": -2.479,
+    "mape": 42.5,
+    "mae_final": 4412.0,
+    "rmse_final": 4840.0
+   }
+  ],
+  "n_origins": 13,
+  "arima_orders": {
+   "(2, 1, 1)": 10,
+   "(2, 1, 2)": 3
+  },
+  "best": "Suavizamiento de Holt amortiguado",
+  "test_weeks": [
+   "2020-08-29",
+   "2020-09-05",
+   "2020-09-12",
+   "2020-09-19"
+  ],
+  "test_actual": [
+   6974.0,
+   5171.0,
+   5592.0,
+   4879.0
+  ],
+  "test_fc": {
+   "Ingenuo (\u00faltimo valor)": [
+    10976,
+    10976,
+    10976,
+    10976
+   ],
+   "Media m\u00f3vil de 3 semanas": [
+    10215,
+    10215,
+    10215,
+    10215
+   ],
+   "Regresi\u00f3n lineal (6 semanas)": [
+    10072,
+    10004,
+    9935,
+    9867
+   ],
+   "Regresi\u00f3n polin\u00f3mica (grado 2)": [
+    13287,
+    14246,
+    15234,
+    16251
+   ],
+   "Suavizamiento de Holt amortiguado": [
+    10229,
+    10225,
+    10222,
+    10219
+   ],
+   "ARIMA (p,1,q) sobre log": [
+    8337,
+    11049,
+    9541,
+    11337
+   ]
+  },
+  "final_arima_order": [
+   1,
+   1,
+   2
+  ],
+  "projection": {
+   "weeks": [
+    "2020-09-26",
+    "2020-10-03",
+    "2020-10-10",
+    "2020-10-17"
+   ],
+   "point": [
+    3910,
+    3320,
+    2803,
+    2351
+   ],
+   "lo80": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "hi80": [
+    5082,
+    4493,
+    3976,
+    3523
+   ],
+   "lo95": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "hi95": [
+    6632,
+    6043,
+    5526,
+    5073
+   ],
+   "arima": [
+    3609,
+    2948,
+    2416,
+    1986
+   ]
+  },
+  "last4": [
+   6974.0,
+   5171.0,
+   5592.0,
+   4879.0
+  ]
+ },
+ "ips": {
+  "tabla": [
+   {
+    "pais": "Bolivia",
+    "camas_total": 12840,
+    "ips_pico": 1.757,
+    "fecha_pico": "2020-07-28",
+    "ips_final": 0.815
+   },
+   {
+    "pais": "Argentina",
+    "camas_total": 225979,
+    "ips_pico": 0.666,
+    "fecha_pico": "2020-09-19",
+    "ips_final": 0.666
+   },
+   {
+    "pais": "Brasil",
+    "camas_total": 467631,
+    "ips_pico": 1.373,
+    "fecha_pico": "2020-08-05",
+    "ips_final": 0.86
+   },
+   {
+    "pais": "Chile",
+    "camas_total": 40335,
+    "ips_pico": 2.702,
+    "fecha_pico": "2020-06-21",
+    "ips_final": 0.604
+   },
+   {
+    "pais": "Colombia",
+    "camas_total": 87010,
+    "ips_pico": 1.798,
+    "fecha_pico": "2020-08-20",
+    "ips_final": 1.154
+   },
+   {
+    "pais": "Ecuador",
+    "camas_total": 26465,
+    "ips_pico": 0.822,
+    "fecha_pico": "2020-05-05",
+    "ips_final": 0.263
+   },
+   {
+    "pais": "Paraguay",
+    "camas_total": 9272,
+    "ips_pico": 1.237,
+    "fecha_pico": "2020-09-19",
+    "ips_final": 1.237
+   },
+   {
+    "pais": "Per\u00fa",
+    "camas_total": 52755,
+    "ips_pico": 2.231,
+    "fecha_pico": "2020-08-26",
+    "ips_final": 1.508
+   }
+  ],
+  "bolivia_peak_14d_cases": 22560.416837823326,
+  "bolivia_beds": 12840,
+  "scenarios": [
+   {
+    "camas_extra_pct": 0,
+    "ips_pico": 1.757
+   },
+   {
+    "camas_extra_pct": 25,
+    "ips_pico": 1.406
+   },
+   {
+    "camas_extra_pct": 50,
+    "ips_pico": 1.171
+   },
+   {
+    "camas_extra_pct": 100,
+    "ips_pico": 0.879
+   }
+  ],
+  "proj_14d_first": 7230,
+  "proj_ips_first": 0.563,
+  "last14_cases": 10470.729343063163,
+  "camas_para_igualar_mediana_pares": 16431
+ },
+ "clf": {
+  "n": 94,
+  "pos": 39,
+  "neg": 55,
+  "thr": 3.7,
+  "ref_se": 27,
+  "min_conf": 30,
+  "baseline": {
+   "mayoria_acc": 0.585,
+   "persistencia_acc": 0.83,
+   "persistencia_prec": 0.811,
+   "persistencia_rec": 0.769,
+   "persistencia_f1": 0.789,
+   "persistencia_auc": 0.831
+  },
+  "results": {
+   "A|\u00c1rbol de decisi\u00f3n (prof. 3)": {
+    "m": {
+     "acc": [
+      0.634,
+      0.098
+     ],
+     "pre": [
+      0.639,
+      0.232
+     ],
+     "rec": [
+      0.389,
+      0.186
+     ],
+     "f1": [
+      0.451,
+      0.167
+     ],
+     "auc": [
+      0.606,
+      0.124
+     ]
+    },
+    "cm": [
+     [
+      44.4,
+      10.6
+     ],
+     [
+      23.8,
+      15.2
+     ]
+    ]
+   },
+   "A|Bosque aleatorio": {
+    "m": {
+     "acc": [
+      0.689,
+      0.078
+     ],
+     "pre": [
+      0.764,
+      0.212
+     ],
+     "rec": [
+      0.387,
+      0.172
+     ],
+     "f1": [
+      0.489,
+      0.172
+     ],
+     "auc": [
+      0.672,
+      0.125
+     ]
+    },
+    "cm": [
+     [
+      49.7,
+      5.3
+     ],
+     [
+      23.9,
+      15.1
+     ]
+    ]
+   },
+   "A|Regresi\u00f3n log\u00edstica": {
+    "m": {
+     "acc": [
+      0.682,
+      0.083
+     ],
+     "pre": [
+      0.692,
+      0.202
+     ],
+     "rec": [
+      0.445,
+      0.174
+     ],
+     "f1": [
+      0.522,
+      0.157
+     ],
+     "auc": [
+      0.648,
+      0.125
+     ]
+    },
+    "cm": [
+     [
+      46.8,
+      8.2
+     ],
+     [
+      21.6,
+      17.4
+     ]
+    ]
+   },
+   "B|\u00c1rbol de decisi\u00f3n (prof. 3)": {
+    "m": {
+     "acc": [
+      0.775,
+      0.076
+     ],
+     "pre": [
+      0.83,
+      0.139
+     ],
+     "rec": [
+      0.599,
+      0.169
+     ],
+     "f1": [
+      0.678,
+      0.127
+     ],
+     "auc": [
+      0.786,
+      0.1
+     ]
+    },
+    "cm": [
+     [
+      49.5,
+      5.5
+     ],
+     [
+      15.6,
+      23.4
+     ]
+    ]
+   },
+   "B|Bosque aleatorio": {
+    "m": {
+     "acc": [
+      0.818,
+      0.073
+     ],
+     "pre": [
+      0.833,
+      0.114
+     ],
+     "rec": [
+      0.717,
+      0.141
+     ],
+     "f1": [
+      0.761,
+      0.105
+     ],
+     "auc": [
+      0.83,
+      0.09
+     ]
+    },
+    "cm": [
+     [
+      49.0,
+      6.0
+     ],
+     [
+      11.0,
+      28.0
+     ]
+    ]
+   },
+   "B|Regresi\u00f3n log\u00edstica": {
+    "m": {
+     "acc": [
+      0.771,
+      0.086
+     ],
+     "pre": [
+      0.763,
+      0.127
+     ],
+     "rec": [
+      0.676,
+      0.16
+     ],
+     "f1": [
+      0.703,
+      0.124
+     ],
+     "auc": [
+      0.793,
+      0.102
+     ]
+    },
+    "cm": [
+     [
+      46.1,
+      8.9
+     ],
+     [
+      12.6,
+      26.4
+     ]
+    ]
+   }
+  },
+  "importance": {
+   "cfr_ref": 0.187,
+   "dep_COCHABAMBA": 0.007,
+   "fall_ref": 0.006,
+   "dep_ORURO": 0.003,
+   "dep_BENI": 0.003,
+   "dep_POTOSI": 0.001,
+   "dep_PANDO": 0.0,
+   "dep_CHUQUISACA": 0.0
+  }
+ }
+}

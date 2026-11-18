@@ -1,0 +1,176 @@
+{
+ "registros": 1639,
+ "municipios": 256,
+ "duplicados": 0,
+ "nulos": 0,
+ "identidad_violada": 0,
+ "suma_filas_fallecidos": 10266,
+ "total_se30": {
+  "conf": 68281,
+  "act": 44795,
+  "fall": 2535,
+  "rec": 20951
+ },
+ "departamentos": [
+  {
+   "depto": "Beni",
+   "conf": 5289,
+   "fall": 289,
+   "rec": 209,
+   "cfr": 5.46
+  },
+  {
+   "depto": "Chuquisaca",
+   "conf": 1826,
+   "fall": 108,
+   "rec": 282,
+   "cfr": 5.91
+  },
+  {
+   "depto": "Cochabamba",
+   "conf": 7420,
+   "fall": 571,
+   "rec": 1942,
+   "cfr": 7.7
+  },
+  {
+   "depto": "La Paz",
+   "conf": 13371,
+   "fall": 218,
+   "rec": 948,
+   "cfr": 1.63
+  },
+  {
+   "depto": "Oruro",
+   "conf": 2657,
+   "fall": 179,
+   "rec": 428,
+   "cfr": 6.74
+  },
+  {
+   "depto": "Pando",
+   "conf": 1365,
+   "fall": 117,
+   "rec": 135,
+   "cfr": 8.57
+  },
+  {
+   "depto": "Potos\u00ed",
+   "conf": 1390,
+   "fall": 49,
+   "rec": 192,
+   "cfr": 3.53
+  },
+  {
+   "depto": "Santa Cruz",
+   "conf": 32138,
+   "fall": 928,
+   "rec": 16537,
+   "cfr": 2.89
+  },
+  {
+   "depto": "Tarija",
+   "conf": 2825,
+   "fall": 76,
+   "rec": 278,
+   "cfr": 2.69
+  }
+ ],
+ "kruskal": {
+  "H": 26.509470788380845,
+  "p": 0.0001788800650644176
+ },
+ "mediana_cfr_50": 3.00997150997151,
+ "spearman": {
+  "conf": {
+   "conf": 1.0,
+   "act": 0.96,
+   "fall": 0.66,
+   "rec": 0.73
+  },
+  "act": {
+   "conf": 0.96,
+   "act": 1.0,
+   "fall": 0.61,
+   "rec": 0.6
+  },
+  "fall": {
+   "conf": 0.66,
+   "act": 0.61,
+   "fall": 1.0,
+   "rec": 0.54
+  },
+  "rec": {
+   "conf": 0.73,
+   "act": 0.6,
+   "fall": 0.54,
+   "rec": 1.0
+  }
+ },
+ "indicadores_acumulados": [
+  {
+   "pais": "Argentina",
+   "total_cases": 601700.0,
+   "total_deaths": 12491.0,
+   "total_cases_per_million": 13313.2,
+   "total_deaths_per_million": 276.4,
+   "cfr": 2.1
+  },
+  {
+   "pais": "Bolivia",
+   "total_cases": 130051.0,
+   "total_deaths": 7550.0,
+   "total_cases_per_million": 11141.2,
+   "total_deaths_per_million": 646.8,
+   "cfr": 5.8
+  },
+  {
+   "pais": "Brasil",
+   "total_cases": 4495183.0,
+   "total_deaths": 135793.0,
+   "total_cases_per_million": 21147.9,
+   "total_deaths_per_million": 638.8,
+   "cfr": 3.0
+  },
+  {
+   "pais": "Chile",
+   "total_cases": 442827.0,
+   "total_deaths": 12199.0,
+   "total_cases_per_million": 23165.0,
+   "total_deaths_per_million": 638.2,
+   "cfr": 2.8
+  },
+  {
+   "pais": "Colombia",
+   "total_cases": 750471.0,
+   "total_deaths": 23850.0,
+   "total_cases_per_million": 14749.0,
+   "total_deaths_per_million": 468.7,
+   "cfr": 3.2
+  },
+  {
+   "pais": "Ecuador",
+   "total_cases": 124129.0,
+   "total_deaths": 11044.0,
+   "total_cases_per_million": 7035.6,
+   "total_deaths_per_million": 626.0,
+   "cfr": 8.9
+  },
+  {
+   "pais": "Paraguay",
+   "total_cases": 32127.0,
+   "total_deaths": 611.0,
+   "total_cases_per_million": 4504.3,
+   "total_deaths_per_million": 85.7,
+   "cfr": 1.9
+  },
+  {
+   "pais": "Per\u00fa",
+   "total_cases": 756412.0,
+   "total_deaths": 31283.0,
+   "total_cases_per_million": 22941.1,
+   "total_deaths_per_million": 948.8,
+   "cfr": 4.1
+  }
+ ]
+}
